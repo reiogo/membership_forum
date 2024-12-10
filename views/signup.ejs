@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title><%= locals.title %></title>
+  </head>
+  <body>
+    <%- include('navbar', {links:links}) %>
+    <h1><%= locals.title %></h1>
+    <form action="" method="POST">
+      <label for="first_name">First Name: </label>
+      <input id="first_name" name="first_name" placeholder="first_name" type="text" required />
+      <label for="last_name">Last Name: </label>
+      <input id="last_name" name="last_name" placeholder="last_name" type="text" required />
+      <label for="email">Email: </label>
+      <input id="email" name="email" placeholder="email" type="email" required />
+      <label for="password">Password: </label>
+      <input id="password" name="password" type="password"  required/>
+      <button>Sign Up</button>
+    </form>
+    <%- include('errors') %>
+  </body>
+  </html>
+
+
