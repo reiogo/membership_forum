@@ -1,11 +1,23 @@
 <nav>
   <ul>
     <% for (let i = 0; i < links.length; i++) { %>
-      <li>
-        <a href="<%= links[i].href %>">
-          <span> <%= links[i].text %> </span>
-        </a>
-      </li>
+      <% if (links[i].href != "login") { %>
+          <li>
+            <a href="<%= links[i].href %>">
+              <span> <%= links[i].text %> </span>
+            </a>
+          </li>
+      <% } else if(!locals.currentUser) { %>
+          <li>
+            <a href="<%= links[i].href %>">
+              <span> <%= links[i].text %> </span>
+            </a>
+          </li>
+      <% } else { %>
+          <li>
+              hi <%=locals.currentUser.first_name %>
+          </li>
+        <% } %>
     <% } %>
   </ul>
 </nav>

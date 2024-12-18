@@ -1,0 +1,20 @@
+<html>
+  <head>
+    <link rel="stylesheet" href="/styles.css">
+    <title>Homepage</title>
+  </head>
+  <body>
+    <%- include('navbar', {links:links}) %>
+    <h1> <%= title %></h1>
+    <% if (locals.messages) { %>
+      <%messages.forEach((message) => { %>
+        <div class = "message-box">
+            <h3> <%= message.text%> </h3>
+            <p> <%= message.username%> </p>
+            <p> <%= message.added%> </p>
+            <a href="/message?id=<%=message.id%>">info</a>
+        </div>
+      <% }); %>
+    <% } %>
+  </body>
+</html>

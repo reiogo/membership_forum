@@ -1,0 +1,162 @@
+\password reiro
+GRANT ALL PRIVILEGES ON DATABASE reiro TO reiro;
+\q
+\l
+\q
+\l
+CREATE DATABASE top_users;
+\l
+\c top_users
+CREATE TABLE usernames (
+id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
+username VARCHAR(255)
+);
+\d
+INSERT INTO usernames (username)
+VALUES ('Mao'), ('nevs'), ('Lofty');
+SELECT * FROM usernames
+;
+\q
+\l
+\c top_users 
+SELECT * FROM top_users;
+\d
+SELECT * FROM usernames;
+\q
+\c top_users
+DROP TABLE usernames
+\d
+\s
+SELECT * FROM usernames
+SELECT * FROM usernames
+\q
+\c top_usernames
+\c top_users
+SELECT * FROM usernames
+\q
+\c top_users
+SELECT * FROM usernames
+;
+DROP TABLES usernames;
+DROP TABLE usernames;
+SELECT * FROM usernames
+;
+\q
+\c top_users 
+SELECT * FROM usernames;
+\q
+\c top_users
+SELECT * FROM usernames;
+\q
+\l
+CREATE DATABASE messages
+\l
+;
+\l
+DROP DATABASE messages;
+\l
+\q
+\password reiro
+\q
+\l
+\q
+\l
+CREATE DATABASE top_inventory;
+\l
+\q
+\q
+\l
+\c top_inventory 
+\q
+\l
+\q
+\l
+\c top_inventory 
+\d
+SELECT * FROM i_inventory
+;
+SELECT * FROM instrument_inventory
+;
+DROP TABLE i_inventory;
+\d
+\d
+DROP TABLE i_category;
+\d
+SELECT * FROM instrument_category
+;
+SELECT * FROM instrument_inventory
+;
+\q
+\l
+\c top_inventory 
+\d
+SELECT * FROM instrument_inventory;
+SELECT * FROM instrument_category;
+\q
+\c top_inventory 
+SELECT * FROM instrument_inventory;
+SELECT * FROM instrument_category;
+DELETE FROM instrument_category WHERE cat_id > 3;
+SELECT * FROM instrument_category;
+\q
+\l
+\q
+\q
+\d
+\l
+\q
+\l
+CREATE DATABASE top_member
+ls
+\l
+;
+CREATE DATABASE top_member;
+\l
+\c top_member 
+\q
+\l
+\c top_auth 
+select *
+;
+\d
+Select * from users
+;
+\q
+\l
+\c top_member 
+select * from members
+;
+\d
+drop table;
+drop member
+;
+drop table where name = member;
+drop table member;
+drop table message;
+drop table member;
+\d
+\d
+\q
+\c top_member 
+drop table members
+;
+drop table messages, members
+;
+\d
+\d
+\q
+\c
+\c top_member 
+\d
+select * from members;
+select * from members;
+select * from members;
+select * from members;
+select * from members;
+select * from members;
+DELETE FROM members WHERE id = 1
+;
+select * from members;
+\q
+\l
+\s top_member

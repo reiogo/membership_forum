@@ -1,8 +1,12 @@
-const db = require('../db/queries.js')
+const bcrypt = require('bcryptjs');
+const db = require('../db/queries.js');
 const { body, validationResult } = require('express-validator');
+
 const links = [
   { href: "/", text: "Home" },
   { href: "new", text: "Message Submission" },
+  { href: "sign-up", text: "Sign up" },
+  { href: "login", text: "Log in" }
 ];
 
 const validateUser = [
@@ -12,6 +16,13 @@ const validateUser = [
     .withMessage("Email must follow correct formatting"),
 
 ];
+
+async function getAllMessages(req, res) {
+  // const messages = await db.messagesGetAll();
+  res.render("index", {title: "Messageboard", links: links});
+
+  // res.render("index", {title: "Mini Messageboard", messages: sample_messages, links: links});
+}
 
 async function createSignUp(req, res) {
   res.render("signup", {
@@ -32,42 +43,28 @@ postNewUser = [
                     });
           }
     try {
-      const { email, firstname, lastname, password } = req.body;
-      await db.addNewUser(email, firstname, lastname, password);
+      const { email, first_name, last_name, password } = req.body;
+
+      bcrypt.hash(password, 10, async(err, hashedPassword) => {
+        if (err) {
+          return next(err);
+        }
+        await db.addNewUser(email, first_name, last_name, hashedPassword);
+      });
       res.redirect("/")
     } catch(err) {
       return next(err);
     }
   }
 ]
-// async function getAllMessages(req, res) {
-//   const messages = await db.messagesGetAll();
-//   console.log('hello from getall', messages);
-//   res.render("index", {title: "Mini Messageboard", messages: messages, links: links});
-// }
 
-// async function getMessage (req, res) {
-//   const messages = await db.messagesGetSpecific();
-
-//   res.render("message", {
-//     title: "Message Info", 
-//     messages: messages, 
-//     messageId: req.query.id, 
-//     links: links});
-
-// }
-// async function postMesssage(req, res) {
-//   messageUser = req.body.user
-//   messageText = req.body.message
-//   await db.messagesPostMessage(user, message);
-//   res.redirect("/");
-
-// }
+function createLogin (req, res) {
+  res.render('login');
+}
 
 module.exports = {
+  createLogin,
   createSignUp,
-  postNewUser
-  // getAllMessages,
-  // getMessage,
-  // postMesssage
+  postNewUser,
+  getAllMessages
 };
