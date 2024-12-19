@@ -1,0 +1,27 @@
+
+li {
+    list-style-type: none;
+}
+
+.message-box {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid gray;
+    margin: 20px;
+    width: max(20vw, 400px);
+    padding: 10px;
+}
+
+.message {
+    border-top: 1px solid black;
+}
+
+h3 {
+    padding: 0;
+    margin: 0;
+
+}
+p{
+    padding: 0;
+    margin: 0;
+}

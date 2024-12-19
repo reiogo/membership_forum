@@ -1,23 +1,36 @@
 <nav>
   <ul>
     <% for (let i = 0; i < links.length; i++) { %>
-      <% if (links[i].href != "login") { %>
+            <% if(!locals.currentUser){ %>
+              <li>
+                <a href="<%= links[i].href %>">
+                  <span> <%= links[i].text %> </span>
+                </a>
+              </li>
+              <% } else if (!links[i].href == "sign-up" || !links[i].href == "login") { %>
+                  <li>
+                    <a href="<%= links[i].href %>">
+                      <span> <%= links[i].text %> </span>
+                    </a>
+                  </li>
+              <% } %>
+    <% } %>
+    <% if (locals.currentUser) { %>
           <li>
-            <a href="<%= links[i].href %>">
-              <span> <%= links[i].text %> </span>
+            <a href="logout">
+              <span>Logout</span>
             </a>
           </li>
-      <% } else if(!locals.currentUser) { %>
+            <% if(!locals.currentUser.membership) { %>
+              <li>
+                <a href="member">
+                  <span>Join the Club!</span>
+                </a>
+              </li>
+           <% } %>
           <li>
-            <a href="<%= links[i].href %>">
-              <span> <%= links[i].text %> </span>
-            </a>
-          </li>
-      <% } else { %>
-          <li>
-              hi <%=locals.currentUser.first_name %>
+              <span>Welcome <%= locals.currentUser.first_name %>!</span>
           </li>
         <% } %>
-    <% } %>
   </ul>
 </nav>

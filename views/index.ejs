@@ -6,15 +6,31 @@
   <body>
     <%- include('navbar', {links:links}) %>
     <h1> <%= title %></h1>
+    <% if (locals.currentUser) { %>
+        <h3> Create a New Message </h3>
+        <form action="newMessage" method="POST" accept-charset="utf-8">
+            <label for="title">Title: </label><br>
+            <input type="text" id = "title" name = "title" placeholder="Title" required />
+            <label for="message">Message</label><br>
+            <textarea id = "message" name = "message" placeholder="Type a message"></textarea><br>
+            <button>Submit</button>
+        </form>
+    <% } %>
     <% if (locals.messages) { %>
       <%messages.forEach((message) => { %>
         <div class = "message-box">
-            <h3> <%= message.text%> </h3>
-            <p> <%= message.username%> </p>
-            <p> <%= message.added%> </p>
-            <a href="/message?id=<%=message.id%>">info</a>
+            <h3> <%= message.message_title%> </h3>
+            <div class = "message">
+                <p> <%= message.message_text%> </p>
+                <% if (locals.currentUser) { %>
+                    <p>Posted at: <%= message.message_time.toDateString()%> </p>
+                    <p> By: <%= message.username %></p>
+                <% } else { %>
+                   <p>Posted by: anonymous</p> 
+                <% } %>
+            </div>
         </div>
       <% }); %>
-    <% } %>
+      <% } %>
   </body>
 </html>

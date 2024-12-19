@@ -7,7 +7,7 @@ const { Client } = require("pg");
 const SQL = `
 CREATE TABLE IF NOT EXISTS members (
   id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
-  username VARCHAR (255),
+  username VARCHAR (255) UNIQUE,
   first_name VARCHAR (255),
   last_name VARCHAR (255),
   password  VARCHAR (255),
@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS messages (
   message_id INTEGER PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
   message_title VARCHAR (255),
   message_text TEXT,
-  message_time TIMESTAMP,
+  message_time TIMESTAMP DEFAULT current_timestamp,
   author_id INTEGER,
   FOREIGN KEY (author_id)
     REFERENCES members(id)
