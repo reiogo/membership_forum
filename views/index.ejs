@@ -8,11 +8,11 @@
     <h1> <%= title %></h1>
     <% if (locals.currentUser) { %>
         <h3> Create a New Message </h3>
-        <form action="newMessage" method="POST" accept-charset="utf-8">
-            <label for="title">Title: </label><br>
+        <form action="newMessage" method="POST" accept-charset="utf-8" class = "new-messages">
+            <label for="title">Title: </label>
             <input type="text" id = "title" name = "title" placeholder="Title" required />
-            <label for="message">Message</label><br>
-            <textarea id = "message" name = "message" placeholder="Type a message"></textarea><br>
+            <label for="message">Message</label>
+            <textarea id = "message" name = "message" placeholder="Type a message"></textarea>
             <button>Submit</button>
         </form>
     <% } %>
@@ -25,6 +25,11 @@
                 <% if (locals.currentUser) { %>
                     <p>Posted at: <%= message.message_time.toDateString()%> </p>
                     <p> By: <%= message.username %></p>
+                    <% if (locals.currentUser.admin) {%>
+                    <form action="/delete?id=<%= message.message_id %>" method="post" accept-charset="utf-8">
+                    <button>Delete Message</button>
+                    </form>
+                    <% } %>
                 <% } else { %>
                    <p>Posted by: anonymous</p> 
                 <% } %>

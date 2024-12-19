@@ -1,11 +1,12 @@
 const pool = require('./pool');
 
-async function addNewUser(email, first_name, last_name, password) {
-  await pool.query("INSERT INTO members (username, first_name, last_name, password) VALUES ($1, $2, $3, $4);", [
+async function addNewUser(email, first_name, last_name, password, isAdmin) {
+  await pool.query("INSERT INTO members (username, first_name, last_name, password, admin) VALUES ($1, $2, $3, $4, $5);", [
     email,
     first_name,
     last_name,
-    password
+    password,
+    isAdmin
   ]);
 }
 
@@ -14,8 +15,8 @@ async function getUser(email) {
   return rows[0];
 }
 
-async function checkUsername(id) {
-  const { rows } = await pool.query("SELECT * FROM members WHERE id = $1;", [id]);
+async function checkUsername(username) {
+  const { rows } = await pool.query("SELECT * FROM members WHERE username = $1;", [username]);
   return rows.length;
 }
 
@@ -37,7 +38,12 @@ async function getAllMessages() {
   return rows;
 }
 
+async function deleteMessage(message_id) {
+  await pool.query("DELETE FROM messages WHERE message_id = $1", [message_id]);
+}
+
 module.exports = {
+  deleteMessage,
   getAllMessages,
   addMessage,
   checkUsername,

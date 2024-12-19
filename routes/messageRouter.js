@@ -17,6 +17,7 @@ messageRouter.post("/member", messageController.makeMember);
 messageRouter.post( "/login", messageController.logIn);
 messageRouter.get("/logout", messageController.logOut);
 messageRouter.post("/newMessage", messageController.processMessage);
+messageRouter.post("/delete", messageController.processDelete);
 
 
  

@@ -18,7 +18,6 @@ const validateUser = [
     .withMessage("Email must follow correct formatting")
     .custom(async(value)=>{
       const checkUsername = await db.checkUsername(value);
-      console.log(checkUsername);
       return !checkUsername;
     })
     .withMessage("Email already registered"),
@@ -29,13 +28,22 @@ const validateUser = [
     .custom((value, {req}) => {
       return value === req.body.password;
     })
-    .withMessage("Passwords did not match")
-
+    .withMessage("Passwords did not match"),
+  body("isAdmin")
+    .optional()
+    .custom((value, {req}) => {
+      const passcode = req.body.admin_passcode;
+      if(passcode) {
+        return passcode === "cats";
+      }
+      return false;
+    })
+    .withMessage("Admin Passcode incorrect")
 ];
 
 async function createIndex(req, res) {
   const messages = await db.getAllMessages();
-  console.log(messages);
+
   res.render("index", {title: "Messageboard", links: links, messages: messages});
 
 }
@@ -59,13 +67,16 @@ postNewUser = [
                     });
           }
     try {
-      const { email, first_name, last_name, password } = req.body;
+      let { email, first_name, last_name, password, isAdmin } = req.body;
+      if(!isAdmin) {
+        isAdmin = false;
+      }
 
       bcrypt.hash(password, 10, async(err, hashedPassword) => {
         if (err) {
           return next(err);
         }
-        await db.addNewUser(email, first_name, last_name, hashedPassword);
+        await db.addNewUser(email, first_name, last_name, hashedPassword, isAdmin);
       });
       res.redirect("/")
     } catch(err) {
@@ -148,7 +159,17 @@ async function processMessage (req, res) {
 
 }
 
+async function processDelete (req, res) {
+  try {
+    await db.deleteMessage(req.query.id)
+  } catch (err) {
+    next(err)
+  }
+  res.redirect("/");
+}
+
 module.exports = {
+  processDelete,
   processMessage,
   logIn,
   logOut,

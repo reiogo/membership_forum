@@ -3,11 +3,12 @@
   <head>
     <meta charset="UTF-8">
     <title><%= locals.title %></title>
+    <link rel="stylesheet" href="/styles.css">
   </head>
   <body>
     <%- include('navbar', {links:links}) %>
     <h1><%= locals.title %></h1>
-    <form action="" method="POST">
+    <form action="" method="POST" id="signup_form">
       <label for="first_name">First Name: </label>
       <input id="first_name" name="first_name" placeholder="first_name" type="text" required />
       <label for="last_name">Last Name: </label>
@@ -18,6 +19,10 @@
       <input id="password" name="password" type="password"  required/>
       <label for="confirm_password">Confirm password: </label>
       <input id="confirm_password" name="confirm_password" type="password"  required/>
+      <label id="isAdmin">Are you an Admin?</label>
+      <input type="checkbox" name="isAdmin" id="isAdmin"/>
+      <label for="admin_passcode">Admin Passcode: </label>
+      <input id="admin_passcode" name="admin_passcode" type="password">
       <button>Sign Up</button>
     </form>
     <%- include('errors') %>
